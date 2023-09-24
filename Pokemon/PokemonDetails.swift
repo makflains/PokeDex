@@ -10,12 +10,12 @@ import Foundation
 struct PokemonDetails: Codable {
     let id: Int
     let name: String
-    let pokemonTypes: [PokemonType] // Изменим имя типа на `pokemonTypes`
+    let pokemonTypes: [PokemonType] 
     let height: Int
     let weight: Int
     let sprites: Sprites
     
-    struct PokemonType: Codable { // Переименуем тип в `PokemonType`
+    struct PokemonType: Codable {
         let type: TypeName
         struct TypeName: Codable {
             let name: String

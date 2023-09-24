@@ -3,7 +3,7 @@
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
-    <entity name="MyPokemon" representedClassName="MyPokemon" syncable="YES" codeGenerationType="class">
+    <entity name="PokemonEntity" representedClassName="PokemonEntity" syncable="YES" codeGenerationType="class">
         <attribute name="elementType" optional="YES" attributeType="String"/>
         <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
