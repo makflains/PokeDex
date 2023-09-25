@@ -8,35 +8,39 @@
 import SwiftUI
 
 struct PokemonListView: View {
+    @EnvironmentObject var dataManager: DataManager
     @State private var pokemonList: [Pokemon] = []
-    @State private var isFetchingData = false
-    
-    // Создаем экземпляр DataManager
-    let dataManager = DataManager.shared
-    
+
     var body: some View {
         NavigationView {
-            List(pokemonList) { pokemon in
-                NavigationLink(destination: PokemonDetailView(pokemon: pokemon)) {
-                    Text(pokemon.name)
+            List {
+                ForEach(pokemonList, id: \.id) { pokemon in
+                    NavigationLink(destination: PokemonDetailView(pokemon: .constant(pokemon))) {
+                        Text(pokemon.name)
+                    }
                 }
             }
-            .navigationBarTitle("Pokemon List")
+            .navigationTitle("Pokemon List")
             .onAppear {
-                fetchData()
+                loadData()
             }
         }
     }
-    
-    private func fetchData() {
-        isFetchingData = true
-        dataManager.fetchPokemonList { [self] pokemonList in
-            if let pokemonList = pokemonList {
-                self.pokemonList = pokemonList
-            } else {
-                // Обработка ошибки загрузки данных
+
+    func loadData() {
+        dataManager.fetchPokemonList { fetchedPokemonList in
+            DispatchQueue.main.async {
+                if let fetchedPokemonList = fetchedPokemonList {
+                    self.pokemonList = fetchedPokemonList
+                }
             }
-            isFetchingData = false
         }
+    }
+}
+
+
+struct PokemonListView_Previews: PreviewProvider {
+    static var previews: some View {
+        PokemonListView()
     }
 }

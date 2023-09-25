@@ -7,22 +7,26 @@
 
 import Foundation
 
-struct PokemonDetails: Codable {
-    let id: Int
+struct PokemonDetails: Decodable {
     let name: String
-    let pokemonTypes: [PokemonType] 
     let height: Int
     let weight: Int
     let sprites: Sprites
-    
-    struct PokemonType: Codable {
-        let type: TypeName
-        struct TypeName: Codable {
-            let name: String
+    let types: [PokemonType]
+
+    struct Sprites: Decodable {
+        let frontDefault: String
+
+        enum CodingKeys: String, CodingKey {
+            case frontDefault = "front_default"
         }
     }
-    
-    struct Sprites: Codable {
-        let front_default: String
+
+    struct PokemonType: Decodable {
+        let type: TypeName
+
+        struct TypeName: Decodable {
+            let name: String
+        }
     }
 }
